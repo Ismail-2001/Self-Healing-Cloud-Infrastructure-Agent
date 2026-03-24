@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  observer:
+    build: .
+    environment:
+      - PROMETHEUS_URL=http://prometheus:9090
+      - POLLING_INTERVAL=10
+      - DIAGNOSIS_URL=http://diagnosis:8080
+      - SHCIA_AUTH_TOKEN=super-secret-token
+    ports:
+      - "8081:8080"
+      - "9091:9090"
+    command: python agents/observer/src/agent.py
+
+  diagnosis:
+    build: .
+    environment:
+      - PLANNER_URL=http://planner:8080
+      - SHCIA_AUTH_TOKEN=super-secret-token
+    ports:
+      - "8082:8080"
+      - "9092:9090"
+    command: python agents/diagnosis/src/agent.py
+
+  planner:
+    build: .
+    environment:
+      - EXECUTION_URL=http://execution:8080
+      - SHCIA_AUTH_TOKEN=super-secret-token
+    ports:
+      - "8083:8080"
+      - "9093:9090"
+    command: python agents/planner/src/agent.py
+
+  execution:
+    build: .
+    environment:
+      - SHCIA_AUTH_TOKEN=super-secret-token
+    ports:
+      - "8084:8080"
+      - "9094:9090"
+    command: python agents/execution/src/agent.py
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    # volumes:
+    #   - ./infrastructure/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml

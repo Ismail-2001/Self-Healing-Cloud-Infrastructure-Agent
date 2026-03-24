@@ -1,0 +1,10 @@
+flask
+pydantic
+requests
+prometheus_client
+gunicorn
+uuid
+pyyaml
+langgraph
+langchain
+langchain-openai

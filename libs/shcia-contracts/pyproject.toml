@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shcia-contracts"
+version = "0.1.0"
+description = "Shared communication schemas and Pydantic models for SHCIA."
+dependencies = [
+    "pydantic"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["shcia_contracts*"]

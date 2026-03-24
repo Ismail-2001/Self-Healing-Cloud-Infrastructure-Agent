@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "shcia-core"
+version = "0.1.0"
+description = "Core library for SHCIA agents: shared metrics, logging, and security."
+dependencies = [
+    "flask",
+    "pydantic",
+    "prometheus_client",
+    "requests"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["shcia_core*"]
